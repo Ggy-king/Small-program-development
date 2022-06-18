@@ -1,0 +1,60 @@
+# 注意很多语句语法不用记 去微信小程序文档中查找为妙计
+
+# 全局配置文件的使用
+app.json
+
+{
+    # 1 pages下放你想加载的页面
+    # 2 注意你放置的顺序就是你小程序页面进来的顺序  
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+
+  "window":{
+    "backgroundTextStyle":"light",           # 下拉加载区域的样式颜色  light / dark
+    "navigationBarBackgroundColor": "#fff",  # 这里是页面顶部条的颜色
+    "navigationBarTitleText": "Weixin",      # 这里是页面顶部条里的文字 显示的内容
+    "navigationBarTextStyle":"black"         # 这里是页面顶部条里的文字的颜色 颜色仅支持白色黑色
+     "enablePullDownRefresh":true            # 是否显示加载区域样式
+  },
+  "tabBar":{                                 # 底部导航栏
+      "position":"top",                      # bottom top 设置为底部 顶部导航栏
+      "color":"B7BBBF",                      # 没有被选中时的颜色
+      "delectedColor":"#2B333B",             # 被选中时的文字颜色    
+      "borderStyle":"black",                 # tabBar上边框的颜色 仅支持黑白  
+      "list":[                               # 底部导航栏里的显示内容列表
+        {
+        "pagePath":"页面地址",
+        "iconPath":"icon图片地址",
+        "selectedIconPath":"被点击选中时的icon图片地址",
+        "text":"首页"                       # 列表部分文字
+      },
+      {
+        "pagePath":"页面地址",
+        "iconPath":"icon图片地址",
+        "selectedIconPath":"被点击选中时的icon图片地址",
+        "text":"首页"
+      },
+      {
+        "pagePath":"页面地址",
+        "iconPath":"icon图片地址",
+        "selectedIconPath":"被点击选中时的icon图片地址",
+        "text":"首页"
+      },
+    ]
+  }
+  "style": "v2",                             # v2 新版小程序样式
+  "sitemapLocation": "sitemap.json"          # 指的是sitemap.json文件的位置  （需要引入）
+}
+
+# 页面级别的配置项   一般只能配置window中的东西
+
+index.json
+
+{
+    "usingComponents":{},                     # 用于引用外部组件
+    "navigationBarBackgroundColor":"#ff0000", # 顶部栏的颜色
+    "navigationBarTitleText":"文字",           # 顶部栏中提示的文字
+    "disableScroll":true                      # 彻底禁止各手机端是否可以上拉页面的问题
+}

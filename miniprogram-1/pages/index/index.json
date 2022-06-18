@@ -1,0 +1,6 @@
+{
+  "usingComponents":{},    
+    "navigationBarBackgroundColor":"#ff0000",
+    "navigationBarTitleText":"小程序",     
+    "disableScroll":true                
+}
