@@ -1,0 +1,66 @@
+# 视图层的数据绑定
+# wxss wxml几乎与css html写法一致
+
+index.wxml
+
+<view wx:if="{{showName}}">                               # wx:if="" 控制微信组件是否展示 语法类似vue 不展示直接不存在于页面
+    {{name}}
+</view>
+
+<checkbox checked="{{true}}">                             # checkbox 单选框  花括号包裹字符为js表达式 类型为布尔 不加则为字符串一般为真值
+< checkbox>
+
+<view hidden="{{!true}}">                                 # hidden 真值隐藏组件 一直存在于页面只是不显示
+    {{name}}
+</view>
+
+
+# 视图层的循环展示内容
+
+index.js
+
+Page({
+    data:{
+        users:[{name:'dell'},{name:'lee'}],
+        times:[1,2,3],                                   # 若循环此数组中的数字 则有几个数字循环几次
+    },
+})
+
+
+
+
+index.wxml
+
+<view 
+    wx:for="{{users}}"                                    # wx:for="" 循环对应数据项
+    wx:for-item="info"                                    # wx:for-item="info"将默认item换成info
+    wx:for-index="number"
+    wx:key="*this"                                        # wx:key="*this" 提升性能的一种手段 给每次渲染的内容添加标识 则每次渲染不重复 
+    >                                   
+    {{info.name}}{{number}}                               # 默认 item.name 并打印出每一项对应的name值  index 对应下标值
+</view>
+
+<block wx:for="times" wx:key="times">                     # block表示一个区块一个整体 展示时标签不上页面 只是帮助作用
+    <view>Hello</view>                                     
+    <view>World</view>
+</block>
+
+
+
+# 视图层代码的拆分
+
+content.wxml                                              # index目录下创建content.wxml文件实现拆分
+                                                          # 文件形式可以引入外层逻辑中的变量
+<view>hello</view>                                        # 这么写通过include方式引入可维护性不高
+
+<template name="content">                                 # 以模板形式存在 name=""为标识 通过import引入 模板可读行更高
+    <view>{{users}}</view>                                # 需要通过data="{{users:users}}"方式传递数据
+    <view>hello world</view>
+</template>
+
+index.wxml
+
+<include src="./content.wxml" />                          # 单双标签都行 引入其他文件的方式 
+
+<import src="./content.wxml" />                           # 引入模板 
+<template is="content" data="{{users:users}}">            # 使用模板 is是表示使用哪个模板 data是传递逻辑数据

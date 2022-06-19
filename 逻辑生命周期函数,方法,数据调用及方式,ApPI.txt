@@ -1,0 +1,103 @@
+# 全局逻辑与页面逻辑
+# 全局逻辑的生命周期函数--是指在某一时刻会自动执行的函数
+
+app.js
+
+App({                                                # APP({})创建一个小程序
+    onLaunch(options){                               # onLaunch 当小程序启动时自动执行的函数 中途退出时间段短不会执行第二次
+                                                     # options下包括path当前页面 scene当前场景 query请求
+        this.sayHello();                             # 调用自己定义的函数需要在一些生命函数中调用
+    },
+    onShow(options){                                 # onShow 小程序重新展示的时候 自动之行动的函数
+        con                                          # options 参数与上面一样
+    },
+    onHide(){                                        # onHide 小程序取消展示的时候 自动执行的函数
+
+    },
+    onError(){                                       # onError 当脚本执行错误的时候 自动执行的函数
+
+    },
+    sayHello(){                                       # 调用 生命周期函数 页面级别逻辑引入
+        console.log('你好')                           # 此处为自己定义的函数 
+    },
+    globalDate:{}                                     # 此处为自己定义的数据
+})
+
+
+# 页面逻辑--以下是按顺序执行的
+
+index.js
+
+const app = getApp()                                  # getApp 得到全局逻辑中的数据
+
+page({                                                # page({}) 创建页面级逻辑
+    onLoad(){                                         # 当页面被加载到内存的时候 或者说页面第一次启动的时候 自动执行的函数              
+        console.log(app.sayHello(),app.globalDate,'index onLoad')
+    },
+    onShow(){                                         # onShow 页面每次被展示的时候自动执行 
+
+    },
+    onReady(){                                        # onReady 当页面完全被渲染完成之后执行的函数                            
+
+    },
+    onHide(){                                         # onHide 页面每次bei取消展示的时候
+
+    },
+    onPullDownRefresh(){                              # onPullDownRefresh 每次下拉刷新时执行的函数
+
+    },
+    onReachBottom(){                                  # onReachBottom 页面滚动到最底部的时候执行
+
+    },
+    onShareAppMessage(){                              # onShareAppMessage 当你分享时自动执行的函数
+        return{
+            title:'share',                            # 分享时显示的主题内容
+            path:'pages/index/index'                  # 分享的页面
+        }
+    },
+    onPageScroll(){                                   # onPageScoll 当页面滚动时自动执行的函数
+
+    },
+
+    data: {                                           # data 写数据写在这里
+        name:'dell'
+    },
+    changeName(){                                     # 此处为自己创建的方法
+        this.setData({                                # setData()改变data中数据的方法
+            name:'lee'
+        })
+    }
+
+})
+
+
+# 在页面调用逻辑中数据与方法
+index.wxml
+
+<view bindtap="changeName">                           # bindtap 点击执行
+    {{name}}                                          # {{}}引入页面逻辑中数据
+</view>
+
+
+# 逻辑层中的API 
+# wx 全局API
+
+page({
+    onShow(){
+        wx.showToast({                                # wxAPI showToast展示弹层
+            title:'cool'
+        }),
+         wx.showModal({                               # wxAPI showModal展示一确定和取消的弹层 
+            cancelColor:'black'
+        }),
+        wx.switchTab({                                # wxAPI switchTab跳转页面
+            url:'/pages/logs/logs'
+        }),
+        wx.request({                                  # wxAPI request请求外部数据
+            url:'',
+            success(res){                             # wxAPI 成功之后执行该方法
+
+            }
+        })
+    }
+})
