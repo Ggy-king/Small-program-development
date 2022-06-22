@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<!-- wxml类似html文件 -->
+<view class="container" bindtap="changeName">
+  {{name}}
+</view>
+<view>{{1 + 1}}</view>
+<checkbox checked="{{true}}"></checkbox>
+<view wx:for="{{users}}" wx:key="*this">
+  {{item.personal}}{{index}}
+</view>
+<include src="./content"/>
+<icon type="waiting" color="#ccc" size="30"></icon>
+<button>hello</button>
